@@ -1,0 +1,55 @@
+[Libraries]
+[Libraries/**]
+# Кеши и временные файлы
+[Libraries/**]
+temp/
+*.pidb
+*.booproj
+*.suo
+*.userprefs
+*.csproj
+*.unityproj
+.idea/
+`.UNDP<|
+[Libraries]
+[Libraries/**]
+temp/
+obj/
+*.csproj
+*.unityproj
+*.pidb
+*.suo
+*.userprefs
+*.DS_Store
+*.vsconfig
+
+# Кэш и временные файлы
+Library/
+Temp/
+Build/
+Builds/
+Logs/
+Packages/
+
+# Настройки пользователя
+*.swp
+*.bak
+*.tmp
+*.user
+
+# Unity настроечные файлы
+*.lock
+.DS_Store
+.mergedemo/
+
+# Visual Studio
+.vs/
+
+# Mac OS
+.DS_Store
+
+
+.vs/
+*.user
+*.suo
+*.log
