@@ -1,29 +1,5 @@
-[Libraries]
+# Unity
 [Libraries/**]
-# Кеши и временные файлы
-[Libraries/**]
-temp/
-*.pidb
-*.booproj
-*.suo
-*.userprefs
-*.csproj
-*.unityproj
-.idea/
-`.UNDP<|
-[Libraries]
-[Libraries/**]
-temp/
-obj/
-*.csproj
-*.unityproj
-*.pidb
-*.suo
-*.userprefs
-*.DS_Store
-*.vsconfig
-
-# Кэш и временные файлы
 Library/
 Temp/
 Build/
@@ -31,25 +7,33 @@ Builds/
 Logs/
 Packages/
 
-# Настройки пользователя
-*.swp
-*.bak
-*.tmp
-*.user
-
-# Unity настроечные файлы
-*.lock
-.DS_Store
-.mergedemo/
-
 # Visual Studio
 .vs/
+*.user
+*.suo
+*.csproj
+*.unityproj
+.vscode/
 
 # Mac OS
 .DS_Store
 
+# Кэш и временные файлы
+*.pidb
+*.booproj
+*.userprefs
+*.log
+*.tmp
+*.bak
+*.swp
 
-.vs/
+# Настройки пользователя
 *.user
 *.suo
-*.log
+
+# Unity настроечные файлы
+*.lock
+.mergedemo/
+
+# Игнорируем настройки, которые не нужны в репозитории
+.idea/
