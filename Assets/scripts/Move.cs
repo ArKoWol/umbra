@@ -28,7 +28,6 @@ public class Behaviour : MonoBehaviour
         // Поворот спрайта в сторону движения
         if (moveInput != 0)
         {
-            // Если двигаемся вправо, спрайт не меняет ориентацию (он смотрит вправо), если влево — инвертируется
             mSpriteRenderer.flipX = moveInput < 0;
         }
 
@@ -48,7 +47,6 @@ public class Behaviour : MonoBehaviour
     // Функция для прыжка
     private void Jump()
     {
-        // Если гравитация инвертирована, прыжок будет в зависимости от направления
         float jumpDirection = mIsGravityUp ? -1 : 1;
         rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpDirection);
     }
@@ -57,14 +55,13 @@ public class Behaviour : MonoBehaviour
     private void ToggleGravity()
     {
         mIsGravityUp = !mIsGravityUp;
-        // Включаем инвертированную гравитацию
         Physics2D.gravity = mIsGravityUp ? Vector2.up * 9.81f : Vector2.down * 9.81f;
     }
 
     // Проверяем, находится ли персонаж на платформе
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("platformNEW"))
         {
             isGrounded = true;
         }
@@ -72,7 +69,7 @@ public class Behaviour : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("platformNEW"))
         {
             isGrounded = false;
         }

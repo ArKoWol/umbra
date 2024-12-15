@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Platform
   - character
+  - Ground
+  - newplatform
+  - NewPlatform
+  - platformNEW
+  - platform
   layers:
   - Default
   - TransparentFX
