@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - character
+  - ReflectivePlatform
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Reflective
+  - ReflectiveCube
   - 
   - 
   - 
