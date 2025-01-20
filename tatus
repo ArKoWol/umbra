@@ -1,0 +1,58 @@
+[33mcommit a40e577b929898e71b52b16154c7a167c92b606b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature-inversion[m[33m)[m
+Merge: 9015322 7f26c8a
+Author: PolinaMakas <adel.tomato@gmail.com>
+Date:   Sun Dec 15 18:00:51 2024 +0200
+
+    Merge branch 'feature-inversion' of github.com:ArKoWol/umbra into feature-inversion
+    add inversion by E bottom and chanched backgrounds.
+    git log
+    git status
+    olease enter a commit message to explain why this merge is necessary,
+
+[33mcommit 9015322f36f68f5b607c0603ae1f6167548512d7[m
+Author: PolinaMakas <adel.tomato@gmail.com>
+Date:   Sun Dec 15 18:00:38 2024 +0200
+
+    Save local changes of feature-inversion
+
+[33mcommit 7f26c8a54462c26ddfd82e9fd4df8efa56c03c34[m[33m ([m[1;31morigin/feature-inversion[m[33m)[m
+Author: Ясюков Артём <artem@vending.by>
+Date:   Sun Dec 15 14:46:30 2024 +0200
+
+    Dobavil privet
+
+[33mcommit 2f8994fde63fb45e6e1a2d66defc6857b2896175[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Artsiom <artsiom.yasiukou@student.ehu.lt>
+Date:   Sun Dec 8 23:45:21 2024 +0200
+
+    fix/fixing background layer
+
+[33mcommit 838c5e0da5bb9472c4cc6d0978ae5de71a3e4b3f[m
+Author: Ясюков Артём <artem@vending.by>
+Date:   Sun Dec 8 23:35:04 2024 +0200
+
+    fix/add missing code
+
+[33mcommit a77dbe157176036d2acd90297c1774dd84edf87e[m
+Author: Ясюков Артём <artem@vending.by>
+Date:   Sun Dec 8 23:27:18 2024 +0200
+
+    feat/add change gravity and movement
+
+[33mcommit cfe52de7905088b5819f9ca860638ee7133131cd[m
+Author: Ясюков Артём <artem@vending.by>
+Date:   Sun Dec 8 22:40:18 2024 +0200
+
+    fix/fixing player folow script
+
+[33mcommit 110387678c830d7920b40f7b132570fafb06fac8[m
+Author: Ясюков Артём <artem@vending.by>
+Date:   Sun Dec 8 19:20:04 2024 +0200
+
+    fe/adding files
+
+[33mcommit 5a7c13bbc3b10d89f13697aaecc5d6272583b144[m
+Author: Ясюков Артём <artem@vending.by>
+Date:   Sun Dec 8 18:52:33 2024 +0200
+
+    project init
