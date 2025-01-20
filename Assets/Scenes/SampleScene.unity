@@ -1042,10 +1042,10 @@ GameObject:
   - component: {fileID: 774903959}
   - component: {fileID: 774903963}
   - component: {fileID: 774903962}
-  - component: {fileID: 774903961}
   - component: {fileID: 774903964}
   - component: {fileID: 774903965}
-  - component: {fileID: 774903966}
+  - component: {fileID: 774903967}
+  - component: {fileID: 774903968}
   m_Layer: 0
   m_Name: character
   m_TagString: Player
@@ -1094,7 +1094,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: dccb6ffe5bac5ff458c13b81f9bc2017, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79c045c064fb05d4c882cf75650c608e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1120,20 +1120,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &774903961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774903958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9777578902bee42bc0df2623625e6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 10
 --- !u!61 &774903962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1230,12 +1216,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5470267633d030c4db6f1833b5b7cd59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStartSprite: {fileID: 21300000, guid: dccb6ffe5bac5ff458c13b81f9bc2017, type: 3}
-  characterNewSprite: {fileID: 21300000, guid: 7cbca419acc4adc4d9a1a72fae711b28, type: 3}
+  characterStartSprite: {fileID: 21300000, guid: 79c045c064fb05d4c882cf75650c608e, type: 3}
+  characterNewSprite: {fileID: 21300000, guid: b54b4dc9d1ee446408a41a8a8fbbd6be, type: 3}
   background: {fileID: 2048834625}
   backgroundStartSprite: {fileID: 21300000, guid: e4a203f0740b9bd4382f79140c9ff653, type: 3}
   backgroundNewSprite: {fileID: 21300000, guid: 41d7f79825efb67448047163644f77b0, type: 3}
---- !u!114 &774903966
+--- !u!95 &774903967
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774903958}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a9f599c49797434485c0e1d9e99f200, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &774903968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

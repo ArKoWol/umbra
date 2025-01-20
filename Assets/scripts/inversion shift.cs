@@ -17,9 +17,23 @@ public class InversionShift : MonoBehaviour
 
     private bool isStartState = true;
     private bool isGrounded = false; // Проверка того, что персонаж на платформе
+    private bool isGravityUp = false; // Флаг для переключения гравитации
+
+    private Rigidbody2D rb;
+    private Animator animator;
+
+    public float jumpForce = 10f;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator not found! Ensure an Animator component is attached.");
+        }
+
         // Заполняем списки платформ
         platformsStart.AddRange(GameObject.FindGameObjectsWithTag("Platform"));
         platformsNew.AddRange(GameObject.FindGameObjectsWithTag("NewPlatform"));
@@ -29,28 +43,47 @@ public class InversionShift : MonoBehaviour
     }
 
     void Update()
+{
+    bool wasJumping = animator?.GetBool("isJumping") ?? false;
+
+    // Діагностика: Логи для відстеження стану
+    Debug.Log($"Update: isGrounded = {isGrounded}, isJumping = {wasJumping}");
+
+    if (!wasJumping && !isGrounded)
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            // Переключаем состояние
-            isStartState = !isStartState;
+        Debug.Log("Set isJumping = true");
+        animator?.SetBool("isJumping", true);
+    }
+    else if (wasJumping && isGrounded)
+    {
+        Debug.Log("Set isJumping = false");
+        animator?.SetBool("isJumping", false);
+    }
 
-            if (isStartState)
-            {
-                SetStartState();
-            }
-            else
-            {
-                SetNewState();
-            }
+    if (Input.GetKeyDown(KeyCode.E))
+    {
+        isStartState = !isStartState;
+        if (isStartState)
+        {
+            SetStartState();
         }
-
-        // Управление прыжком
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        else
         {
-            Jump();
+            SetNewState();
         }
     }
+
+    if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+    {
+        Jump();
+    }
+
+    if (Input.GetKeyDown(KeyCode.X))
+    {
+        ToggleGravity();
+    }
+}
+
 
     void SetStartState()
     {
@@ -102,32 +135,37 @@ public class InversionShift : MonoBehaviour
 
     void Jump()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        float jumpForce = 10f;
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if (!isGrounded) return; // Перешкоджаємо повторному стрибку
+
+        float jumpDirection = isGravityUp ? -1 : 1;
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpDirection);
+
+        animator?.SetBool("isJumping", true); // Встановлюємо анімацію стрибка
+    }
+
+    void ToggleGravity()
+    {
+        isGravityUp = !isGravityUp;
+        Physics2D.gravity = isGravityUp ? Vector2.up * 9.81f : Vector2.down * 9.81f;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
+{
+    if ((collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("NewPlatform")) && !isGrounded)
     {
-        Debug.Log($"Collided with {collision.gameObject.name}, Tag: {collision.gameObject.tag}");
-
-        // Проверяем наличие компонента Collider2D и тегов платформ
-        if (collision.gameObject.TryGetComponent(out Collider2D collider) &&
-            (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("NewPlatform")))
-        {
-            isGrounded = true;
-            Debug.Log("Player is now grounded.");
-        }
+        Debug.Log($"Grounded on {collision.gameObject.name}");
+        isGrounded = true;
+        animator?.SetBool("isJumping", false);
     }
+}
 
-    void OnCollisionExit2D(Collision2D collision)
+void OnCollisionExit2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("NewPlatform"))
     {
-        Debug.Log($"Player left platform {collision.gameObject.name}");
-
-        if (collision.gameObject.TryGetComponent(out Collider2D collider) &&
-            (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("NewPlatform")))
-        {
-            isGrounded = false;
-        }
+        Debug.Log($"Left platform {collision.gameObject.name}");
+        isGrounded = false;
     }
+}
+
 }
