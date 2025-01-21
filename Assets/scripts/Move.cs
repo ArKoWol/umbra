@@ -1,80 +1,92 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Behaviour : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;      // Скорость движения
+    public float moveSpeed = 5f; // Скорость передвижения
     public float jumpForce = 10f; // Сила прыжка
-    private Rigidbody2D rb;
-    private bool isGrounded;
-    private SpriteRenderer mSpriteRenderer; // Для изменения спрайта
+    public float fallMultiplier = 2.5f; // Множитель ускорения при падении
+    public float lowJumpMultiplier = 2f; // Множитель для более низкого прыжка
+    public float fallSpeed = 5f; // Максимальная скорость падения при зажатом пробеле
+    private bool isGrounded; // Флаг для проверки, на земле ли игрок
 
-    // Для отслеживания состояния гравитации
-    private bool mIsGravityUp = false;
+    public Vector2 areaSize = new Vector2(3f, 2f); // Размер области, в которой камера не двигается
+    public float followSpeed = 2f; // Начальная скорость движения камеры
+    public float acceleration = 1f; // Ускорение движения камеры
+    private Vector3 velocity = Vector3.zero; // Начальная скорость камеры
+    private Camera mainCamera;
+
+    private Rigidbody2D rb;
+    private Collider2D col;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        mSpriteRenderer = GetComponent<SpriteRenderer>(); // Получаем ссылку на SpriteRenderer
+        rb = GetComponent<Rigidbody2D>(); // Получаем компонент Rigidbody2D
+        col = GetComponent<Collider2D>(); // Получаем компонент Collider2D
+        mainCamera = Camera.main; // Получаем ссылку на основную камеру
     }
 
     void Update()
     {
-        // Движение влево-вправо, игнорируя вертикальную скорость
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        // Проверка, на земле ли игрок
+        isGrounded = Physics2D.IsTouchingLayers(col, LayerMask.GetMask("platform dm1", "platform dm2", "dm1-2"));
 
-        // Поворот спрайта в сторону движения
-        if (moveInput != 0)
+        // Движение игрока
+        float moveX = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
+
+        // Отзеркаливание персонажа в зависимости от направления движения
+        if (moveX != 0) // Если движение влево или вправо
         {
-            // Если двигаемся вправо, спрайт не меняет ориентацию (он смотрит вправо), если влево — инвертируется
-            mSpriteRenderer.flipX = moveInput < 0;
+            transform.localScale = new Vector3(Mathf.Sign(moveX), 1f, 1f); // Отзеркаливаем персонажа
         }
 
-        // Прыжок по нажатию кнопки Space
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // Прыжок
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        // Проверка смены гравитации
-        if (Input.GetKeyDown(KeyCode.X)) // Вы можете изменить эту клавишу
+        // Плавное падение
+        if (rb.velocity.y < 0)
         {
-            ToggleGravity();
+            if (Input.GetKey(KeyCode.Space)) // Если пробел зажат
+            {
+                rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -fallSpeed)); // Устанавливаем максимальную скорость падения
+            }
+            else
+            {
+                rb.gravityScale = fallMultiplier; // Если пробел не зажат, ускоряем падение
+            }
         }
-    }
-
-    // Функция для прыжка
-    private void Jump()
-    {
-        // Если гравитация инвертирована, прыжок будет в зависимости от направления
-        float jumpDirection = mIsGravityUp ? -1 : 1;
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpDirection);
-    }
-
-    // Переключение гравитации
-    private void ToggleGravity()
-    {
-        mIsGravityUp = !mIsGravityUp;
-        // Включаем инвертированную гравитацию
-        Physics2D.gravity = mIsGravityUp ? Vector2.up * 9.81f : Vector2.down * 9.81f;
-    }
-
-    // Проверяем, находится ли персонаж на платформе
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Platform"))
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space)) // Если не зажат пробел и идет вверх
         {
-            isGrounded = true;
+            rb.gravityScale = lowJumpMultiplier; // Сниженная гравитация для короткого прыжка
         }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Platform"))
+        else
         {
-            isGrounded = false;
+            rb.gravityScale = 1f; // Стандартная гравитация
         }
+
+        // Логика для плавного следования камеры с замедлением в области
+        Vector3 targetPosition = transform.position;
+        Vector3 cameraPosition = mainCamera.transform.position;
+
+        // Определяем область, в которой камера не двигается
+        Vector3 minBounds = targetPosition - new Vector3(areaSize.x, areaSize.y, 0f);
+        Vector3 maxBounds = targetPosition + new Vector3(areaSize.x, areaSize.y, 0f);
+
+        // Если игрок в пределах области, камера не двигается
+        if (cameraPosition.x > minBounds.x && cameraPosition.x < maxBounds.x &&
+            cameraPosition.y > minBounds.y && cameraPosition.y < maxBounds.y)
+        {
+            return; // Камера не двигается, если игрок в пределах области
+        }
+
+        // Если игрок выходит за пределы области, камера начинает двигаться
+        Vector3 direction = targetPosition - cameraPosition;
+
+        // Постепенное ускорение камеры
+        float smoothSpeed = followSpeed + acceleration * Time.deltaTime;
+        mainCamera.transform.position = Vector3.SmoothDamp(cameraPosition, targetPosition, ref velocity, smoothSpeed);
     }
 }

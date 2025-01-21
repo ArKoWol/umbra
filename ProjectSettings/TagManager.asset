@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - character
+  - CameraBarrier
   layers:
   - Default
   - TransparentFX
@@ -13,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - platform dm1
+  - platform dm2
+  - dm1-2
+  - CameraCollision
   - 
   - 
   - 

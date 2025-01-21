@@ -5,7 +5,7 @@ using UnityEngine;
 public class GravityShift : MonoBehaviour
 {
     private Rigidbody2D mRb;
-    private SpriteRenderer mSpriteRenderer; // Добавляем переменную для SpriteRenderer
+    private SpriteRenderer mSpriteRenderer; // Р”РѕР±Р°РІР»СЏРµРј РїРµСЂРµРјРµРЅРЅСѓСЋ РґР»СЏ SpriteRenderer
 
     private float mGravity = 5f * 2.0f; // adjust if needed
 
@@ -17,7 +17,7 @@ public class GravityShift : MonoBehaviour
     void Start()
     {
         mRb = GetComponent<Rigidbody2D>();
-        mSpriteRenderer = GetComponent<SpriteRenderer>(); // Инициализация SpriteRenderer
+        mSpriteRenderer = GetComponent<SpriteRenderer>(); // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ SpriteRenderer
         mCamera = Camera.main;
     }
 
@@ -52,13 +52,13 @@ public class GravityShift : MonoBehaviour
         if (mIsGravityUp)
         {
             Physics2D.gravity = Vector2.up * mGravity;
-            // Переворачиваем спрайт
+            // РџРµСЂРµРІРѕСЂР°С‡РёРІР°РµРј СЃРїСЂР°Р№С‚
             mSpriteRenderer.flipY = true;
         }
         else
         {
             Physics2D.gravity = Vector2.down * mGravity;
-            // Восстанавливаем нормальный вид спрайта
+            // Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРѕСЂРјР°Р»СЊРЅС‹Р№ РІРёРґ СЃРїСЂР°Р№С‚Р°
             mSpriteRenderer.flipY = false;
         }
     }
