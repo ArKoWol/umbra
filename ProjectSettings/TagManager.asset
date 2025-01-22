@@ -7,10 +7,9 @@ TagManager:
   - Platform
   - character
   - Ground
-  - newplatform
   - NewPlatform
-  - platformNEW
-  - platform
+  - chest
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -18,10 +17,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - dm1
+  - dm2
+  - dm_all
+  - Collect
   - 
   - 
   - 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GravityShift : MonoBehaviour
 {
     private Rigidbody2D mRb;
-    private SpriteRenderer mSpriteRenderer; // Добавляем переменную для SpriteRenderer
+    private SpriteRenderer mSpriteRenderer; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ SpriteRenderer
 
     private float mGravity = 5f * 2.0f; // adjust if needed
 
@@ -17,7 +17,7 @@ public class GravityShift : MonoBehaviour
     void Start()
     {
         mRb = GetComponent<Rigidbody2D>();
-        mSpriteRenderer = GetComponent<SpriteRenderer>(); // Инициализация SpriteRenderer
+        mSpriteRenderer = GetComponent<SpriteRenderer>(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SpriteRenderer
         mCamera = Camera.main;
     }
 
@@ -34,7 +34,7 @@ public class GravityShift : MonoBehaviour
 
     private bool IsToggleGravity()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.R))
             return true;
 
         // Later check for Joy Stick
@@ -52,13 +52,13 @@ public class GravityShift : MonoBehaviour
         if (mIsGravityUp)
         {
             Physics2D.gravity = Vector2.up * mGravity;
-            // Переворачиваем спрайт
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             mSpriteRenderer.flipY = true;
         }
         else
         {
             Physics2D.gravity = Vector2.down * mGravity;
-            // Восстанавливаем нормальный вид спрайта
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             mSpriteRenderer.flipY = false;
         }
     }
