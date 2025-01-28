@@ -47,11 +47,12 @@ public class HowToMove : MonoBehaviour
 
     private void HandleJumping()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isOnPlatform)
+        if (Input.GetKeyDown(KeyCode.Space) && isOnPlatform && !isJumping)
         {
             float jumpDirection = isGravityUp ? -1 : 1; // Учитываем направление гравитации
             rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpDirection); // Используем корректное направление прыжка
             isJumping = true;
+            isOnPlatform = false;
         }
     }
 
