@@ -1717,7 +1717,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &230818197
@@ -8259,7 +8259,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1046494808
@@ -9767,11 +9767,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 10
-  groundCheck: {fileID: 1494881960}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 449
-  groundCheckRadius: 0.2
 --- !u!95 &1221834076
 Animator:
   serializedVersion: 5
@@ -14225,7 +14220,7 @@ Transform:
   m_GameObject: {fileID: 1765332985}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.1, y: 27.9, z: -10}
+  m_LocalPosition: {x: -100.33, y: 21.53, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14399,7 +14394,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 1221834082}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -14428,7 +14423,7 @@ Transform:
   m_GameObject: {fileID: 1791851823}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.1, y: 27.9, z: -10}
+  m_LocalPosition: {x: -100.33, y: 21.53, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
