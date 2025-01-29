@@ -8,6 +8,8 @@ public class CharacterCollision : MonoBehaviour
     [SerializeField] private string winSceneName;
     
     [SerializeField] private string deadSceneName;
+    
+    [SerializeField] private string nextSceneName;
 
     // Этот метод вызывается, когда персонаж сталкивается с триггером
     private void OnTriggerEnter2D(Collider2D other)
@@ -29,6 +31,11 @@ public class CharacterCollision : MonoBehaviour
         if (other.CompareTag("win"))
         {
             SceneManager.LoadScene(winSceneName);
+        }
+        
+        if (other.CompareTag("next"))
+        {
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 }

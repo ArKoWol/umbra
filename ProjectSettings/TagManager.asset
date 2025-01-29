@@ -11,6 +11,7 @@ TagManager:
   - chest
   - enemy
   - win
+  - next
   layers:
   - Default
   - TransparentFX

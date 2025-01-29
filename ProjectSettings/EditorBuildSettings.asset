@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/tutor.unity
     guid: dbce83a6c2eafe54f8c41c57d91932fd
+  - enabled: 1
+    path: Assets/Scenes/JumpScene.unity
+    guid: e6666c70c6d66344ea845e81897a7d81
   m_configObjects: {}
