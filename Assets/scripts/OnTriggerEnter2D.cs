@@ -4,11 +4,8 @@ using UnityEngine.SceneManagement;
 public class CharacterCollision : MonoBehaviour
 {
     // Начальная позиция для телепортации
-
     [SerializeField] private string winSceneName;
-    
     [SerializeField] private string deadSceneName;
-    
     [SerializeField] private string nextSceneName;
 
     // Этот метод вызывается, когда персонаж сталкивается с триггером
@@ -21,21 +18,25 @@ public class CharacterCollision : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        // Проверяем, что объект, с которым произошло столкновение, имеет тег "enemy"
-        if (other.CompareTag("enemy"))
-        {
-            // Телепортируем персонажа на стартовую позицию
-            SceneManager.LoadScene(deadSceneName);
-        }
-        
         if (other.CompareTag("win"))
         {
             SceneManager.LoadScene(winSceneName);
         }
-        
+
         if (other.CompareTag("next"))
         {
             SceneManager.LoadScene(nextSceneName);
+        }
+    }
+
+    // Этот метод вызывается, когда персонаж сталкивается с объектом типа "enemy" (коллайдер)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Проверяем, что объект, с которым произошло столкновение, имеет тег "enemy"
+        if (collision.collider.CompareTag("enemy"))
+        {
+            // Телепортируем персонажа на стартовую позицию
+            SceneManager.LoadScene(deadSceneName);
         }
     }
 }
