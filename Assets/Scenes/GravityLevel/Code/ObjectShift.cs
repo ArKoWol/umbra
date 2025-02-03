@@ -29,8 +29,7 @@ public class ObjectShift : GravityShift
 
         startPosition = transform.position;
         float objectHeight = 12;
-
-        Debug.Log(mIsGravityUp);
+        
         if (!mIsGravityUp) 
             objectHeight *= -1;
 
