@@ -830,7 +830,6 @@ GameObject:
   - component: {fileID: 75225753}
   - component: {fileID: 75225752}
   - component: {fileID: 75225754}
-  - component: {fileID: 75225755}
   m_Layer: 0
   m_Name: spider pink (1)
   m_TagString: enemy
@@ -950,21 +949,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.28, y: 2.6}
   m_EdgeRadius: 0
---- !u!114 &75225755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75225751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7adeaf7167a947d0b983de445a2292b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winSceneName: 
-  deadSceneName: 
-  nextSceneName: 
 --- !u!1 &86311443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4212,11 +4196,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &611507393
@@ -6098,11 +6082,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1156296625
@@ -6909,11 +6893,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1313931964
@@ -9115,6 +9099,7 @@ GameObject:
   - component: {fileID: 1906295722}
   - component: {fileID: 1906295720}
   - component: {fileID: 1906295719}
+  - component: {fileID: 1906295727}
   - component: {fileID: 1906295718}
   - component: {fileID: 1906295717}
   - component: {fileID: 1906295726}
@@ -9348,6 +9333,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928284e5bf7e96940975980c391bc1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1906295727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906295716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7adeaf7167a947d0b983de445a2292b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winSceneName: win
+  deadSceneName: dead
+  nextSceneName: 
 --- !u!1 &1909695385
 GameObject:
   m_ObjectHideFlags: 0
