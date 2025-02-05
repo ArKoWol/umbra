@@ -24,7 +24,9 @@ public class CharacterCollision : MonoBehaviour
         // Проверяем, что объект, с которым произошло столкновение, имеет тег "enemy"
         if (other.CompareTag("enemy"))
         {
-            // Телепортируем персонажа на стартовую позицию
+            // Сохраняем имя сцены, в которой произошла смерть
+            SceneData.LastSceneName = SceneManager.GetActiveScene().name;
+            // Переходим на сцену смерти
             SceneManager.LoadScene(deadSceneName);
         }
         

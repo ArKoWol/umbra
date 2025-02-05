@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GravityLevel/GravityScene.unity
     guid: f7ec0bc49ef7548449bf6af6a50a6fea
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity
+    guid: 192a047fb4afed149b2e39e8c72c6c8d
   m_configObjects: {}

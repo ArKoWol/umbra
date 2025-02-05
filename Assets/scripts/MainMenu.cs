@@ -22,4 +22,30 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+	public void RestartLevel()
+    {
+        if (!string.IsNullOrEmpty(SceneData.LastSceneName))
+        {
+            SceneManager.LoadScene(SceneData.LastSceneName);
+        }
+        else
+        {
+            Debug.LogError("Имя последней сцены не сохранено!");
+        }
+    }
+
+	public void OnResumeButtonPressed()
+    {
+        // Найдём объект PauseManager в основной сцене и вызовем ResumeGame()
+        PauseManager pauseManager = FindObjectOfType<PauseManager>();
+        if (pauseManager != null)
+        {
+            pauseManager.ResumeGame();
+        }
+        else
+        {
+            Debug.LogError("PauseManager не найден в сцене!");
+        }
+    }
 }
