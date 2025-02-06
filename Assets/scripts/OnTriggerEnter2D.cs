@@ -6,6 +6,7 @@ public class CharacterCollision : MonoBehaviour
     [SerializeField] private string winSceneName;
     [SerializeField] private string deadSceneName;
     [SerializeField] private string nextSceneName;
+    [SerializeField] private int requiredChests = 6; // Количество сундуков, необходимых для разблокировки портала
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -41,15 +42,22 @@ public class CharacterCollision : MonoBehaviour
         {
             if (ChestCounter.Instance != null)
             {
-                ChestCounter.Instance.ResetChestCount();
-            }
-            if (!string.IsNullOrEmpty(nextSceneName))
-            {
-                SceneManager.LoadScene(nextSceneName);
-            }
-            else
-            {
-                Debug.LogError("Next scene name is not set.");
+                if (ChestCounter.Instance.ChestCount >= requiredChests)
+                {
+                    ChestCounter.Instance.ResetChestCount();
+                    if (!string.IsNullOrEmpty(nextSceneName))
+                    {
+                        SceneManager.LoadScene(nextSceneName);
+                    }
+                    else
+                    {
+                        Debug.LogError("Next scene name is not set.");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not enough chests collected to unlock the portal.");
+                }
             }
         }
     }

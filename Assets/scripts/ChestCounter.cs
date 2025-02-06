@@ -10,6 +10,11 @@ public class ChestCounter : MonoBehaviour
     private int chestCount = 0;
     private GameObject canvasObj;
 
+    public int ChestCount
+    {
+        get { return chestCount; }
+    }
+
     private void Awake()
     {
         // Реализуем паттерн Singleton, чтобы этот объект был доступен из любого скрипта

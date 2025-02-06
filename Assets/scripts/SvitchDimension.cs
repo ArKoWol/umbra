@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DimensionShift : MonoBehaviour
 {
@@ -16,6 +17,14 @@ public class DimensionShift : MonoBehaviour
 
     void Start()
     {
+        // Проверяем, активна ли сцена, где должен работать скрипт
+        if (SceneManager.GetActiveScene().name == "JumpScene")
+        {
+            Debug.LogWarning("DimensionShift отключен на сцене: JumpScene");
+            enabled = false;
+            return;
+        }
+
         // Ищем все объекты на старте, которые принадлежат слоям dm1, dm2 и dmAlwaysActive
         objectsInDM1 = FindObjectsInLayer(layerDM1);
         objectsInDM2 = FindObjectsInLayer(layerDM2);
@@ -27,18 +36,22 @@ public class DimensionShift : MonoBehaviour
         SetActiveForLayer(objectsInDMAlwaysActive, true);
 
         // Устанавливаем фоны
-        background1.SetActive(true);
-        background2.SetActive(false);
+        if (background1 != null) background1.SetActive(true);
+        if (background2 != null) background2.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // Проверка нажатия E
+        if (!enabled) return;
+
+        // Проверка нажатия клавиши E для переключения измерений
+        if (Input.GetKeyDown(KeyCode.E))
         {
             SwitchDimension();
         }
     }
 
+    // Переключение между измерениями
     void SwitchDimension()
     {
         if (isDM1Active)
@@ -46,33 +59,31 @@ public class DimensionShift : MonoBehaviour
             // Переключение на dm2
             SetActiveForLayer(objectsInDM1, false);
             SetActiveForLayer(objectsInDM2, true);
-            background1.SetActive(false);
-            background2.SetActive(true);
+            if (background1 != null) background1.SetActive(false);
+            if (background2 != null) background2.SetActive(true);
         }
         else
         {
             // Переключение на dm1
             SetActiveForLayer(objectsInDM1, true);
             SetActiveForLayer(objectsInDM2, false);
-            background1.SetActive(true);
-            background2.SetActive(false);
+            if (background1 != null) background1.SetActive(true);
+            if (background2 != null) background2.SetActive(false);
         }
 
         // Переключаем состояние
         isDM1Active = !isDM1Active;
+        Debug.Log("Переключение измерений: " + (isDM1Active ? "DM1" : "DM2"));
     }
 
-    // Функция для поиска всех объектов в слое
+    // Поиск всех объектов в слое
     GameObject[] FindObjectsInLayer(LayerMask layer)
     {
-        // Find all game objects in the scene
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
-
-        // Filter objects by checking if their layer matches the layer mask
         return System.Array.FindAll(allObjects, obj => (layer.value & (1 << obj.layer)) != 0);
     }
 
-    // Функция для установки активности объектов в определённом слое
+    // Установка активности объектов в определённом слое
     void SetActiveForLayer(GameObject[] objects, bool isActive)
     {
         foreach (GameObject obj in objects)
