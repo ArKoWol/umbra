@@ -11,27 +11,46 @@ public class CharacterCollision : MonoBehaviour
     {
         if (other.CompareTag("chest"))
         {
-            ChestCounter.Instance.IncrementChestCount();
+            if (ChestCounter.Instance != null)
+            {
+                ChestCounter.Instance.IncrementChestCount();
+            }
             Destroy(other.gameObject);
         }
 
         if (other.CompareTag("enemy"))
         {
             SceneData.LastSceneName = SceneManager.GetActiveScene().name;
-            ChestCounter.Instance.ResetChestCount();
+            if (ChestCounter.Instance != null)
+            {
+                ChestCounter.Instance.ResetChestCount();
+            }
             SceneManager.LoadScene(deadSceneName);
         }
 
         if (other.CompareTag("win"))
         {
-            ChestCounter.Instance.ResetChestCount();
+            if (ChestCounter.Instance != null)
+            {
+                ChestCounter.Instance.ResetChestCount();
+            }
             SceneManager.LoadScene(winSceneName);
         }
 
         if (other.CompareTag("next"))
         {
-            ChestCounter.Instance.ResetChestCount();
-            SceneManager.LoadScene(nextSceneName);
+            if (ChestCounter.Instance != null)
+            {
+                ChestCounter.Instance.ResetChestCount();
+            }
+            if (!string.IsNullOrEmpty(nextSceneName))
+            {
+                SceneManager.LoadScene(nextSceneName);
+            }
+            else
+            {
+                Debug.LogError("Next scene name is not set.");
+            }
         }
     }
 }

@@ -32,11 +32,8 @@ public class ChestCounter : MonoBehaviour
 
     private void Start()
     {
-        // Находим текстовый элемент по имени
-        chestCounterText = GameObject.Find("ChestCounterText")?.GetComponent<Text>();
-
-        // Если текстовый элемент не найден, создаем его
-        if (chestCounterText == null)
+        // Создаем Canvas и текстовый элемент, если они еще не созданы
+        if (canvasObj == null)
         {
             CreateChestCounterText();
         }
@@ -96,16 +93,20 @@ public class ChestCounter : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (canvasObj != null)
+        // Если Canvas и текстовый элемент не найдены, создаем их
+        if (canvasObj == null || chestCounterText == null)
         {
-            if (scene.name == "dead")
-            {
-                canvasObj.SetActive(false); // Скрываем Canvas на сцене dead
-            }
-            else
-            {
-                canvasObj.SetActive(true); // Показываем Canvas на всех остальных сценах
-            }
+            CreateChestCounterText();
+        }
+
+        if (scene.name == "dead")
+        {
+            canvasObj.SetActive(false); // Скрываем Canvas на сцене dead
+        }
+        else
+        {
+            canvasObj.SetActive(true); // Показываем Canvas на всех остальных сценах
+            UpdateChestCounterText(); // Обновляем текст счетчика
         }
     }
 
