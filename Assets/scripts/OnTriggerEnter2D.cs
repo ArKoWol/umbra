@@ -33,9 +33,16 @@ public class CharacterCollision : MonoBehaviour
         {
             if (ChestCounter.Instance != null)
             {
-                ChestCounter.Instance.ResetChestCount();
+                if (ChestCounter.Instance.ChestCount >= requiredChests)
+                {
+                    ChestCounter.Instance.ResetChestCount();
+                    SceneManager.LoadScene(winSceneName);
+                }
+                else
+                {
+                    Debug.Log("Not enough chests collected to win.");
+                }
             }
-            SceneManager.LoadScene(winSceneName);
         }
 
         if (other.CompareTag("next"))
