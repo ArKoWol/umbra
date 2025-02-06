@@ -33,7 +33,7 @@ public class DimensionShift : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // Проверка нажатия F
+        if (Input.GetKeyDown(KeyCode.E)) // Проверка нажатия E
         {
             SwitchDimension();
         }
@@ -77,7 +77,10 @@ public class DimensionShift : MonoBehaviour
     {
         foreach (GameObject obj in objects)
         {
-            obj.SetActive(isActive);
+            if (obj != null)
+            {
+                obj.SetActive(isActive);
+            }
         }
     }
 }
