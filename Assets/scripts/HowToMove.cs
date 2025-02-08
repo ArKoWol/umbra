@@ -5,7 +5,7 @@ using UnityEngine;
 public class HowToMove : MonoBehaviour
 {
     public float speed = 5f;        // Скорость движения
-    public float jumpForce = 10f;  // Сила прыжка
+    public float jumpForce = 10f;   // Сила прыжка
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -14,24 +14,31 @@ public class HowToMove : MonoBehaviour
     private bool isRunning = false;
     private bool isOnPlatform = false; // Проверка, находится ли на платформе
 
-    private float gravity = 10f; // Гравитация
-    public bool isGravityUp = false; // Проверка инверсии гравитации
+    private GravityShift gravityShift;
 
     void Start()
     {
+        // Получаем компоненты
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        gravityShift = GetComponent<GravityShift>();
+
+        // Проверяем, что компоненты найдены
+        if (rb == null) Debug.LogError("Rigidbody2D не найден на объекте: " + gameObject.name);
+        if (spriteRenderer == null) Debug.LogError("SpriteRenderer не найден на объекте: " + gameObject.name);
+        if (animator == null) Debug.LogError("Animator не найден на объекте: " + gameObject.name);
+        if (gravityShift == null) Debug.LogError("GravityShift не найден на объекте: " + gameObject.name);
     }
 
     void Update()
     {
         HandleMovement();
         HandleJumping();
-        HandleGravityToggle();
         UpdateAnimatorParameters();
     }
 
+    // Обработка движения
     private void HandleMovement()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
@@ -45,41 +52,30 @@ public class HowToMove : MonoBehaviour
         }
     }
 
+    // Обработка прыжка
     private void HandleJumping()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isOnPlatform && !isJumping)
         {
-            float jumpDirection = isGravityUp ? -1 : 1; // Учитываем направление гравитации
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpDirection); // Используем корректное направление прыжка
+            float jumpDirection = (gravityShift != null && gravityShift.mIsGravityUp) ? -1 : 1;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpDirection);
             isJumping = true;
             isOnPlatform = false;
+            Debug.Log("Прыжок выполнен с направлением: " + jumpDirection);
         }
     }
 
-    private void HandleGravityToggle()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ToggleGravity();
-        }
-    }
-
-    private void ToggleGravity()
-    {
-        isGravityUp = !isGravityUp;
-
-        Physics2D.gravity = isGravityUp ? Vector2.up * gravity : Vector2.down * gravity;
-        rb.gravityScale = 1;
-
-        spriteRenderer.flipY = isGravityUp;
-    }
-
+    // Обновление параметров аниматора
     private void UpdateAnimatorParameters()
     {
-        animator.SetBool("isJumping", isJumping);
-        animator.SetBool("isRunning", isRunning);
+        if (animator != null)
+        {
+            animator.SetBool("isJumping", isJumping);
+            animator.SetBool("isRunning", isRunning);
+        }
     }
 
+    // Обработка столкновений с платформой
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))

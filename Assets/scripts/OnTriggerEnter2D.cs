@@ -3,41 +3,69 @@ using UnityEngine.SceneManagement;
 
 public class CharacterCollision : MonoBehaviour
 {
-    // Начальная позиция для телепортации
-
     [SerializeField] private string winSceneName;
-    
     [SerializeField] private string deadSceneName;
-    
     [SerializeField] private string nextSceneName;
+    [SerializeField] private int requiredChests = 6; // Количество сундуков, необходимых для разблокировки портала
 
-    // Этот метод вызывается, когда персонаж сталкивается с триггером
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Проверяем, что объект, с которым произошло столкновение, имеет тег "chest"
         if (other.CompareTag("chest"))
         {
-            // Удаляем объект, с которым произошло столкновение
+            if (ChestCounter.Instance != null)
+            {
+                ChestCounter.Instance.IncrementChestCount();
+            }
             Destroy(other.gameObject);
         }
 
-        // Проверяем, что объект, с которым произошло столкновение, имеет тег "enemy"
         if (other.CompareTag("enemy"))
         {
-            // Сохраняем имя сцены, в которой произошла смерть
             SceneData.LastSceneName = SceneManager.GetActiveScene().name;
-            // Переходим на сцену смерти
+            if (ChestCounter.Instance != null)
+            {
+                ChestCounter.Instance.ResetChestCount();
+            }
             SceneManager.LoadScene(deadSceneName);
         }
-        
+
         if (other.CompareTag("win"))
         {
-            SceneManager.LoadScene(winSceneName);
+            if (ChestCounter.Instance != null)
+            {
+                if (ChestCounter.Instance.ChestCount >= requiredChests)
+                {
+                    ChestCounter.Instance.ResetChestCount();
+                    SceneManager.LoadScene(winSceneName);
+                }
+                else
+                {
+                    Debug.Log("Not enough chests collected to win.");
+                }
+            }
         }
-        
+
         if (other.CompareTag("next"))
         {
-            SceneManager.LoadScene(nextSceneName);
+            if (ChestCounter.Instance != null)
+            {
+                if (ChestCounter.Instance.ChestCount >= requiredChests)
+                {
+                    ChestCounter.Instance.ResetChestCount();
+                    if (!string.IsNullOrEmpty(nextSceneName))
+                    {
+                        SceneManager.LoadScene(nextSceneName);
+                    }
+                    else
+                    {
+                        Debug.LogError("Next scene name is not set.");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not enough chests collected to unlock the portal.");
+                }
+            }
         }
     }
 }
