@@ -37,7 +37,36 @@ public class CharacterCollision : MonoBehaviour
         
         if (other.CompareTag("next"))
         {
+            SaveLevel(nextSceneName);
             SceneManager.LoadScene(nextSceneName);
+        }
+    }
+    
+    private void SaveLevel(string sceneName)
+    {
+        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        int currentLevel = GetLevelByName(sceneName);
+
+        if (currentLevel > unlockedLevel)
+        {
+            PlayerPrefs.SetInt("UnlockedLevel", currentLevel);
+        }
+    }
+
+    protected int GetLevelByName(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "JumpScene":
+                return 1;
+            case "GravityScene":
+                return 2;
+            case "TimeScene":
+                return 3;
+            case "SampleScene":
+                return 4;
+            default:
+                return 1;
         }
     }
 }
