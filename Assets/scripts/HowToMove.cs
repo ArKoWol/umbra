@@ -61,7 +61,6 @@ public class HowToMove : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce * jumpDirection);
             isJumping = true;
             isOnPlatform = false;
-            Debug.Log("Прыжок выполнен с направлением: " + jumpDirection);
         }
     }
 
